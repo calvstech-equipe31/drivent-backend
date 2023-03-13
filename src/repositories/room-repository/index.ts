@@ -16,9 +16,28 @@ async function findById(roomId: number) {
   });
 }
 
+async function typeRoom(){
+  return prisma.room.findMany({
+    select:{
+      capacity:true,
+      hotelId:true
+    }
+  })
+}
+async function countCapacityRooms() {
+  return prisma.room.groupBy({
+    by:['hotelId'],
+    _sum:{
+      capacity:true
+    }
+  });
+}
+
 const roomRepository = {
   findAllByHotelId,
-  findById
+  findById,
+  countCapacityRooms,
+  typeRoom
 };
 
 export default roomRepository;
