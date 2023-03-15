@@ -13,7 +13,6 @@ export async function getDefaultEvent(_req: Request, res: Response) {
 
   try {
     const cachedEvent = await redis.get(cacheKey);
-    console.log(cachedEvent);
     if (cachedEvent) {
       return res.status(httpStatus.OK).send(JSON.parse(cachedEvent));
     } else {
