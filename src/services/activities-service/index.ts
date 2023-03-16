@@ -22,6 +22,8 @@ async function listDays(userId: number) {
   if (ticket.TicketType.isRemote) {
     throw cannotListActivitiesError();
   }
+  const days = await dayRepository.findDays();
+  return days;
 }
 
 const activitieService = {
