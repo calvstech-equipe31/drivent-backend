@@ -29,9 +29,23 @@ async function findByUserId(userId: number) {
     where: {
       userId,
     },
-    include: {
-      Room: true,
+    select:{
+      id:true,
+      roomId:true,
+      userId:true,
+      Room:{
+        select:{
+          id:true,
+          capacity:true,
+          name:true,
+          hotelId:true,
+          Hotel:true
+        }
+      }
     },
+    // include: {
+    //   Room: true,
+    // },
   });
 }
 
