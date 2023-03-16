@@ -2,7 +2,7 @@ import { prisma } from "@/config";
 
 async function findDays() {
   //return prisma.days.findMany();
-  return [{name:'Segunda', date:'20/03/2023'},{name:'Terça', date:'21/03/2023'}]
+  return [{ id:1, name:'Segunda', date:'20/03' },{ id:2, name:'Terça', date:'21/03' }]
 }
 
 const dayRepository = {
