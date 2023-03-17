@@ -2,6 +2,7 @@ import app, { init } from "@/app";
 import { prisma } from "@/config";
 import faker from "@faker-js/faker";
 import { TicketStatus } from "@prisma/client";
+import exp from "constants";
 import e from "express";
 import httpStatus from "http-status";
 import * as jwt from "jsonwebtoken";
@@ -99,6 +100,7 @@ describe("GET /hotels", () => {
           id: createdHotel.id,
           name: createdHotel.name,
           image: createdHotel.image,
+          typesRoom: expect.any(Array),
           createdAt: createdHotel.createdAt.toISOString(),
           updatedAt: createdHotel.updatedAt.toISOString()
         }
@@ -217,6 +219,9 @@ describe("GET /hotels/:hotelId", () => {
           hotelId: createdHotel.id,
           createdAt: createdRoom.createdAt.toISOString(),
           updatedAt: createdRoom.updatedAt.toISOString(),
+          _count:{
+            Booking: expect.any(Number)
+          }
         }]
       });
     });

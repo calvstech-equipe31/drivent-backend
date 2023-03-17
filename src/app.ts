@@ -1,13 +1,13 @@
-import 'reflect-metadata';
-import 'express-async-errors';
-import express, { Express } from 'express';
-import cors from 'cors';
+import "reflect-metadata";
+import "express-async-errors";
+import express, { Express } from "express";
+import cors from "cors";
 
-import { loadEnv, connectDb, disconnectDB, prisma } from '@/config';
+import { loadEnv, connectDb, disconnectDB, prisma } from "@/config";
 
 loadEnv();
 
-import { handleApplicationErrors } from '@/middlewares';
+import { handleApplicationErrors } from "@/middlewares";
 import {
   usersRouter,
   authenticationRouter,
@@ -17,30 +17,21 @@ import {
   paymentsRouter,
   hotelsRouter,
   bookingRouter,
-} from '@/routers';
+} from "@/routers";
 
 const app = express();
 app
   .use(cors())
   .use(express.json())
-  .get('/health', async (_req, res) => {
-    await prisma.room.create({
-      data: {
-        hotelId: 1,
-        capacity: 1,
-        name: '5',
-      },
-    });
-    res.send('Ok!');
-  })
-  .use('/users', usersRouter)
-  .use('/auth', authenticationRouter)
-  .use('/event', eventsRouter)
-  .use('/enrollments', enrollmentsRouter)
-  .use('/tickets', ticketsRouter)
-  .use('/payments', paymentsRouter)
-  .use('/hotels', hotelsRouter)
-  .use('/booking', bookingRouter)
+  .get("/health", (_req, res) => res.send("OK!"))
+  .use("/users", usersRouter)
+  .use("/auth", authenticationRouter)
+  .use("/event", eventsRouter)
+  .use("/enrollments", enrollmentsRouter)
+  .use("/tickets", ticketsRouter)
+  .use("/payments", paymentsRouter)
+  .use("/hotels", hotelsRouter)
+  .use("/booking", bookingRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
