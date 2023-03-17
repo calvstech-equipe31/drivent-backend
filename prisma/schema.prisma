@@ -132,11 +132,35 @@ model Booking {
 }
 
 model Day {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
-  date      DateTime @db.Date
-  createdAt DateTime @default(now()) @db.Timestamp(6)
+  date      DateTime   @db.Date
+  createdAt DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt DateTime   @db.Timestamp(6)
+  Activity  Activity[]
+}
+
+model Activity {
+  id        Int      @id @default(autoincrement())
+  dayId     Int
+  name      String   @db.VarChar(255)
+  localId   Int
+  startHour String   @db.VarChar(255)
+  endHour   String   @db.VarChar(255)
+  duration  Int
+  createdAt DateTime @db.Timestamp(6)
   updatedAt DateTime @db.Timestamp(6)
+  Day       Day      @relation(fields: [dayId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Activity_fk0")
+  Location  Location @relation(fields: [localId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Activity_fk1")
+}
+
+model Location {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique @db.VarChar(255)
+  capacity  Int
+  createdAt DateTime   @db.Timestamp(6)
+  updatedAt DateTime   @db.Timestamp(6)
+  Activity  Activity[]
 }
 
 enum TicketStatus {

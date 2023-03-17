@@ -14,9 +14,9 @@ describe('authenticationServices tests suite',()=>{
     jest.spyOn(userRepository, 'findByEmail').mockImplementationOnce(():any=>{
       return {
         id: 1,
-        email:user.email,
-        password: user.password
-      }
+        email: user.email,
+        password: user.password,
+      };
     });
     jest.spyOn(bcrypt, 'compare').mockImplementationOnce(()=>{ return true});
     jest.spyOn(jwt, 'sign').mockImplementationOnce(()=> {return token});
