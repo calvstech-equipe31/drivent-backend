@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  email      String      @unique @db.VarChar(255)
-  password   String      @db.VarChar(255)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  Booking    Booking[]
-  Enrollment Enrollment?
-  Session    Session[]
+  id          Int         @id @default(autoincrement())
+  email       String      @unique @db.VarChar(255)
+  password    String      @db.VarChar(255)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  Booking     Booking[]
+  Enrollment  Enrollment?
+  Session     Session[]
+  Inscription Inscription[]
 }
 
 model Session {
@@ -132,11 +133,46 @@ model Booking {
 }
 
 model Day {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
-  date      DateTime @db.Date
-  createdAt DateTime @default(now()) @db.Timestamp(6)
+  date      DateTime   @db.Date
+  createdAt DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt DateTime   @db.Timestamp(6)
+  Activity  Activity[]
+}
+
+model Activity {
+  id        Int      @id @default(autoincrement())
+  dayId     Int
+  name      String   @db.VarChar(255)
+  localId   Int
+  startHour String   @db.VarChar(255)
+  endHour   String   @db.VarChar(255)
+  duration  Int
+  createdAt DateTime @db.Timestamp(6)
   updatedAt DateTime @db.Timestamp(6)
+  Day       Day      @relation(fields: [dayId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Activity_fk0")
+  Location  Location @relation(fields: [localId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Activity_fk1")
+  Inscription Inscription[]
+}
+
+model Location {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique @db.VarChar(255)
+  capacity  Int
+  createdAt DateTime   @db.Timestamp(6)
+  updatedAt DateTime   @db.Timestamp(6)
+  Activity  Activity[]
+}
+
+model Inscription {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  activityId Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Activity   Activity       @relation(fields: [activityId], references: [id])         
+  User       User      @relation(fields: [userId], references: [id]) 
 }
 
 enum TicketStatus {
