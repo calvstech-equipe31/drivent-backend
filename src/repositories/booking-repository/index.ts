@@ -29,19 +29,19 @@ async function findByUserId(userId: number) {
     where: {
       userId,
     },
-    select:{
-      id:true,
-      roomId:true,
-      userId:true,
-      Room:{
-        select:{
-          id:true,
-          capacity:true,
-          name:true,
-          hotelId:true,
-          Hotel:true
-        }
-      }
+    select: {
+      id: true,
+      roomId: true,
+      userId: true,
+      Room: {
+        select: {
+          id: true,
+          capacity: true,
+          name: true,
+          hotelId: true,
+          Hotel: true,
+        },
+      },
     },
     // include: {
     //   Room: true,
@@ -75,7 +75,7 @@ const bookingRepository = {
   findByRoomId,
   findByUserId,
   upsertBooking,
-  findAllBooking
+  findAllBooking,
 };
 
 export default bookingRepository;

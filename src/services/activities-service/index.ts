@@ -1,10 +1,10 @@
-import dayRepository from '@/repositories/day-repository';
-import enrollmentRepository from '@/repositories/enrollment-repository';
-import ticketRepository from '@/repositories/ticket-repository';
-import { notFoundError } from '@/errors';
-import { cannotListActivitiesError } from '@/errors/cannot-list-activities-error';
-import { paymentError } from '@/errors/payment-error';
-import bookingRepository from '@/repositories/booking-repository';
+import dayRepository from "@/repositories/day-repository";
+import enrollmentRepository from "@/repositories/enrollment-repository";
+import ticketRepository from "@/repositories/ticket-repository";
+import { notFoundError } from "@/errors";
+import { cannotListActivitiesError } from "@/errors/cannot-list-activities-error";
+import { paymentError } from "@/errors/payment-error";
+import bookingRepository from "@/repositories/booking-repository";
 
 async function listDays(userId: number) {
   //Tem enrollment?
@@ -15,10 +15,10 @@ async function listDays(userId: number) {
   //Tem ticket pago isOnline false
   const ticket = await ticketRepository.findTicketByEnrollmentId(enrollment.id);
 
-  if (!ticket || ticket.status === 'RESERVED') {
+  if (!ticket || ticket.status === "RESERVED") {
     throw paymentError();
   }
-  
+
   if (ticket.TicketType.isRemote) {
     throw cannotListActivitiesError();
   }
