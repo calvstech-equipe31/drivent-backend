@@ -6,6 +6,6 @@ const activitiesRouter = Router();
 
 activitiesRouter
   .all("/*", authenticateToken)
-  .get("/", getDays)
+  .get("/", getDays);
 
 export { activitiesRouter };

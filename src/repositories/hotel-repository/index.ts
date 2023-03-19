@@ -24,9 +24,8 @@ async function findRoomsByHotelId(hotelId: number) {
           createdAt: true,
           updatedAt: true,
           _count: { select: { Booking: true } },
-          
         },
-        orderBy: { id: 'asc'}
+        orderBy: { id: "asc" },
       },
     },
   });
