@@ -16,10 +16,10 @@ async function listDays(userId: number) {
   //Tem ticket pago isOnline false
   const ticket = await ticketRepository.findTicketByEnrollmentId(enrollment.id);
 
-  if (!ticket || ticket.status === 'RESERVED') {
+  if (!ticket || ticket.status === "RESERVED") {
     throw paymentError();
   }
-  
+
   if (ticket.TicketType.isRemote) {
     throw cannotListActivitiesError();
   }

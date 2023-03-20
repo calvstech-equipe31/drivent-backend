@@ -1,7 +1,7 @@
-import { createClient } from 'redis';
-import eventsService from '@/services/events-service';
-import { Request, Response } from 'express';
-import httpStatus from 'http-status';
+import { createClient } from "redis";
+import eventsService from "@/services/events-service";
+import { Request, Response } from "express";
+import httpStatus from "http-status";
 
 export async function getDefaultEvent(_req: Request, res: Response) {
   const redis = createClient({
@@ -9,7 +9,7 @@ export async function getDefaultEvent(_req: Request, res: Response) {
   });
   await redis.connect();
 
-  const cacheKey = 'eventConfig';
+  const cacheKey = "eventConfig";
 
   try {
     const cachedEvent = await redis.get(cacheKey);
